@@ -10,18 +10,12 @@ import {
 
 import SearchPage from './screens/SearchPage';
 
+import Routes from './routes'
+
 const App = () => {
 
-  return (
-    <SafeAreaView>
-      <SearchPage />
-      {/* <StatusBar/>
-      <ScrollView>
-        <View>
-        </View>
-      </ScrollView> */}
-    </SafeAreaView>
-  );
+  return <Routes />
+  
 };
 
 export default App;
