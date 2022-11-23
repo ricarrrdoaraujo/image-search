@@ -1,6 +1,8 @@
 export interface ISearchResult {
   id: number;
-  previewURL: string;
+  webformatURL: string;
+  webformatWidth: number;
+  webformatHeight: number;
   details: IDetails;
 }
 

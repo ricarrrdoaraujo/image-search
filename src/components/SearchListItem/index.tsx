@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 
 import {ISearchResult} from '../../models/SearchResult';
+import styles from './styles';
 
 interface SearchResultProps {
   item: ISearchResult;
@@ -20,12 +21,8 @@ const SearchListItem = ({
     onPress={() => console.tron.log('navigate do details', item)}>
     <Image
       resizeMode="contain"
-      style={{
-        width: '60%',
-        aspectRatio: 1.3,
-        alignSelf: 'center',
-      }}
-      source={{uri: item.previewURL}}
+      style={styles.image}
+      source={{uri: item.webformatURL}}
     />
   </TouchableOpacity>
   );
