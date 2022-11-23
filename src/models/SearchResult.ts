@@ -3,7 +3,11 @@ export interface ISearchResult {
   webformatURL: string;
   webformatWidth: number;
   webformatHeight: number;
-  details: IDetails;
+  user: string;
+  tags: string;
+  largeImageURL: string;
+  imageWidth: number;
+  imageHeight: number;
 }
 
 export interface IDetails {

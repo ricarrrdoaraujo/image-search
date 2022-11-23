@@ -48,7 +48,6 @@ const SearchPage = () => {
       itemToSearch={itemToSearch}
       onSubmit={onSubmitText}
     />
-    <ScrollView>
       <View>
         {
           searchResult ?
@@ -57,7 +56,6 @@ const SearchPage = () => {
           /> : null
         }
       </View>
-    </ScrollView>
   </SafeAreaView>
   );
 };
