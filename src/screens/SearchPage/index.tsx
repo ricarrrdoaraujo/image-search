@@ -3,6 +3,7 @@ import {
   SafeAreaView,
   ScrollView,
   StatusBar,
+  TextInput,
   StyleSheet,
   Text,
   View,
@@ -10,34 +11,43 @@ import {
 import axios from 'axios';
 
 import SearchList from '../../components/SearchList';
+import SearchInput from '../../components/SearchInput';
 
 const baseUrl = 'https://pixabay.com';
 
 const SearchPage = () => {
   const [searchResult, setSearchResult] = useState([]);
+  const [itemToSearch, setItemToSearch] = useState('');
 
   const API_KEY = '13795435-b34eaf44529b91465aa96284a';
-  const URL = `${baseUrl}/api/?key=${API_KEY}&q=${encodeURIComponent('red roses')}`
-  console.log(URL)
+  const URL = (text: string) => (`${baseUrl}/api/?key=${API_KEY}&q=${encodeURIComponent(text)}`)
 
-  const searchImages = async () => {
+  const searchImages = async (textSearch: string) => {
     const configObject = {
       method: 'get',
-      url: URL
+      url: URL(textSearch)
     }
     await axios(configObject).then((res) => {
       setSearchResult(res.data.hits)
-      console.tron.log({res})
     });
   }
 
-  useEffect(() => {
-    // searchImages()
-  },[])
+  const onSearchImage = (item: string) => {
+    setItemToSearch(item)
+  }
+
+  const onSubmitText = async (text: any) => {
+    await searchImages(text.nativeEvent.text);
+  }
 
   return (
   <SafeAreaView>
     <StatusBar/>
+    <SearchInput 
+      onSearchImage={onSearchImage}
+      itemToSearch={itemToSearch}
+      onSubmit={onSubmitText}
+    />
     <ScrollView>
       <View>
         {
@@ -46,7 +56,6 @@ const SearchPage = () => {
             items={searchResult}
           /> : null
         }
-        
       </View>
     </ScrollView>
   </SafeAreaView>
