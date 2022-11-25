@@ -1,20 +1,17 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Provider} from 'react-redux';
 
-import SearchPage from './screens/SearchPage';
+import store from './redux/store'
 
 import Routes from './routes'
 
 const App = () => {
 
-  return <Routes />
+  return (
+    <Provider store={store}>
+      <Routes />
+    </Provider>
+  )
   
 };
 
