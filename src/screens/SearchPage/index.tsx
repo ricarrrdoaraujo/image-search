@@ -1,11 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
-  ScrollView,
   StatusBar,
-  TextInput,
-  StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import axios from 'axios';

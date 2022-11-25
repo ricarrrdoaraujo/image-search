@@ -9,22 +9,11 @@ import {
 } from 'react-native';
 import {
   RouteProp,
-  useNavigation, 
   useRoute,
 } from '@react-navigation/native';
 
-import {RootStackParamList} from '../../routes/types'
 import {IDetails} from '../../models/SearchResult'
 import styles from './styles'
-
-type DetailsRouteProp = RouteProp<
-  RootStackParamList,
-  'Details'
->;
-
-// type DetailsProp = {
-//   route: DetailsRouteProp;
-// };
 
 type ParamList = {
   Params: IDetails;
@@ -32,9 +21,7 @@ type ParamList = {
 
 const Details = () => {
   const router = useRoute<RouteProp<ParamList, 'Params'>>();
-  // const navigation = useNavigation();
 
-  console.tron.log(router.params.largeImageURL)
   return (
   <SafeAreaView>
     <StatusBar/>
