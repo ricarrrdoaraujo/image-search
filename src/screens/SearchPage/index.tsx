@@ -4,18 +4,17 @@ import {
   StatusBar,
   View,
 } from 'react-native';
-import axios from 'axios';
 
 import SearchList from '../../components/SearchList';
 import SearchInput from '../../components/SearchInput';
 import { getImages } from '../../services/searchImages';
 
-const baseUrl = 'https://pixabay.com';
-
 const SearchPage = () => {
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState<any>([]);
   const [itemToSearch, setItemToSearch] = useState('');
   const [previousItem, setPreviousItem] = useState('');
+  const [page, setPage] = useState(1);
+  const [scrollCallback, setScrollCallback] = useState(null);
 
   const onSearchImage = (item: string) => {
     setItemToSearch(item)
@@ -24,14 +23,49 @@ const SearchPage = () => {
   const verifyPrevious = (text: any) => {
     if(itemToSearch == '') return;
     if(previousItem == itemToSearch) return;
-    onSubmitText(text)
+    setPage(1)
+    onSubmitText(text, page)
   }
 
-  const onSubmitText = async (text: any) => {
+  const onSubmitText = async (text: any, pag: number) => {
     setPreviousItem(text.nativeEvent.text)
-    const res = await getImages(text.nativeEvent.text);
-    res &&  setSearchResult(res?.data.hits)
+    const res = await getImages(text.nativeEvent.text, pag);
+    res && setSearchResult(res?.data.hits)
+    scrollCallback &&
+    scrollCallback.scrollToIndex({
+      animated: false, 
+      index: 1,
+      viewPosition: 0.5,
+    })
   }
+
+  const handleEndReached = () => {
+    setPage(page + 1)
+  }
+
+  const onSearchNewPage = async () => {
+    const res = await getImages(itemToSearch, page);
+    res && setSearchResult((currentItems: any) => 
+    ([...currentItems, ...res?.data.hits]))
+  }
+
+  useEffect(() => {
+    if (itemToSearch == previousItem && page > 1) {
+      onSearchNewPage()
+    }
+  },[page])
+
+  // useEffect(() => {
+  //   return () => {
+  //     if (itemToSearch != previousItem && page > 1 && scrollCallback) {
+  //       scrollCallback.scrollToIndex({
+  //         animated: false, 
+  //         index: 1,
+  //         viewPosition: 0.5,
+  //       })
+  //     }
+  //   } 
+  // })
 
   return (
   <SafeAreaView>
@@ -46,6 +80,8 @@ const SearchPage = () => {
           searchResult ?
           <SearchList 
             items={searchResult}
+            onEndReached={handleEndReached}
+            scrollToZero={setScrollCallback}
           /> : null
         }
       </View>

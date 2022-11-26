@@ -10,10 +10,14 @@ import {selectCurrentItemSlice} from '../../redux/slices/currentItemSlice';
 
 interface SearchResultsProps {
   items: ISearchResult[];
+  onEndReached: () => void;
+  scrollToZero?: any;
 }
 
 const SearchList = ({
  items,
+ onEndReached,
+ scrollToZero,
 }: SearchResultsProps) => {
   const flatListRef = useRef<FlatList>(null)
   const currentItem = useAppSelector(selectCurrentItemSlice);
@@ -27,6 +31,10 @@ const SearchList = ({
       })
     }
   },[currentItem])
+
+  useEffect(() => {
+    scrollToZero(flatListRef.current)
+  },[flatListRef])
 
   return (
     <>
@@ -48,6 +56,8 @@ const SearchList = ({
             index: 0,
           })
         }}
+        onEndReachedThreshold={0.2}
+        onEndReached={onEndReached}
       />
     </>
   );
