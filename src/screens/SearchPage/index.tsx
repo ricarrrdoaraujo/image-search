@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -15,14 +15,22 @@ const baseUrl = 'https://pixabay.com';
 const SearchPage = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [itemToSearch, setItemToSearch] = useState('');
+  const [previousItem, setPreviousItem] = useState('');
 
   const onSearchImage = (item: string) => {
     setItemToSearch(item)
   }
 
+  const verifyPrevious = (text: any) => {
+    if(itemToSearch == '') return;
+    if(previousItem == itemToSearch) return;
+    onSubmitText(text)
+  }
+
   const onSubmitText = async (text: any) => {
+    setPreviousItem(text.nativeEvent.text)
     const res = await getImages(text.nativeEvent.text);
-    res && setSearchResult(res.data.hits)
+    res &&  setSearchResult(res?.data.hits)
   }
 
   return (
@@ -31,7 +39,7 @@ const SearchPage = () => {
     <SearchInput 
       onSearchImage={onSearchImage}
       itemToSearch={itemToSearch}
-      onSubmit={onSubmitText}
+      onSubmit={verifyPrevious}
     />
       <View>
         {

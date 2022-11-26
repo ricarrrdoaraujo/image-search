@@ -21,11 +21,6 @@ const SearchInput = ({
  onSubmit,
 }: SearchInputProps) => {
 
-  // console.tron.log({items})
-
-  useEffect(() => {
-  },[[]])
-
   return (
     <>
      <TextInput 
