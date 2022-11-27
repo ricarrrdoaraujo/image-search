@@ -9,7 +9,6 @@ import {StackNavigationProp} from '@react-navigation/stack';
 
 import {ISearchResult} from '../../models/SearchResult';
 import styles from './styles';
-import {windowHeight} from '../../styles/Dimensions';
 
 import {RootStackParamList} from '../../routes/types';
 import {useAppDispatch} from '../../redux/hooks';
@@ -24,7 +23,6 @@ interface SearchResultProps {
 const SearchListItem = ({
   item,
   currentIndex,
-  orientation,
 }: SearchResultProps) => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList, 'Details'>>();
   const dispatch = useAppDispatch();
@@ -40,18 +38,12 @@ const SearchListItem = ({
     })
   }
 
-  const onChangeOrientation = () => {
-    if (orientation != 'PORTRAIT') {
-      return {height: windowHeight - 70}
-    }
-  }
-
   return (
   <TouchableOpacity
     onPress={handleNavigation}>
     <Image
       resizeMode="contain"
-      style={[styles.image, onChangeOrientation() ]}
+      style={styles.image}
       source={{uri: item.webformatURL}}
     />
   </TouchableOpacity>

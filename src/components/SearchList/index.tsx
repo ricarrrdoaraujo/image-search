@@ -55,7 +55,7 @@ const SearchList = ({
     viewablePreviousItem.current = viewableItem;
   },[viewableItem])
 
-  const verifyPreviousItem = (viewableItem: any) => {//[0]?.index
+  const verifyPreviousItem = (viewableItem: any) => {
     if (viewableItem.length == 0) {
       return viewablePreviousItem.current;
     } else {
@@ -63,7 +63,7 @@ const SearchList = ({
     }
   }
 
-  const onViewableItemsChanged = useCallback(({viewableItems}) => {
+  const onViewableItemsChanged = useCallback(({viewableItems}: any) => {
     if (viewableItems.length != 0) {
       setViewableItem(verifyPreviousItem(viewableItems))
     }

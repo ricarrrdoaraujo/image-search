@@ -74,6 +74,8 @@ const SearchPage = () => {
   useOrientationChange((o) => {
     if (o != 'PORTRAIT') {
       setHideLogo(true)
+    } else if (o == 'PORTRAIT' && searchResult.length > 0) {
+      setHideLogo(true)
     } else {
       setHideLogo(false)
     }

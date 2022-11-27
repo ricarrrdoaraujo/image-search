@@ -1,11 +1,14 @@
 import {StyleSheet} from 'react-native';
+import { windowWidth } from '../../styles/Dimensions';
+
+console.log({windowWidth})
 
 const styles = StyleSheet.create({
   image: {
-    width: '80%',
+    width: windowWidth * .8,
     alignSelf: 'center',
     resizeMode: 'contain',
-    aspectRatio: 1.2
+    aspectRatio: 1.2,
   },
 });
 

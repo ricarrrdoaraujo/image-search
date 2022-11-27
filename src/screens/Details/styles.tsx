@@ -6,6 +6,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 70,
   },
+  containerLandscape: {
+    flexDirection: 'row', 
+    alignContent: 'center', 
+    justifyContent: 'space-between', 
+    paddingTop: 40,
+    paddingHorizontal: 20,
+  },
   image: {
     width: windowWidth - 20,
     alignSelf: 'center',
@@ -15,6 +22,12 @@ const styles = StyleSheet.create({
   tags: {
     flexDirection: 'row',
   },
+  infoContainer: {
+    alignItems: 'center',
+  },
+  infoContainerLandscape: {
+    flex: 1, 
+    alignContent: 'center'}
 });
 
 export default styles;
