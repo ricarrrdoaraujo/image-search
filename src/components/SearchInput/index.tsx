@@ -20,15 +20,13 @@ const SearchInput = ({
 }: SearchInputProps) => {
 
   return (
-    <>
-     <TextInput 
-      style={styles.input}
-      onChangeText={onSearchImage}
-      value={itemToSearch}
-      placeholder="Search..."
-      onSubmitEditing={onSubmit}
-    />
-    </>
+    <TextInput 
+    style={styles.input}
+    onChangeText={onSearchImage}
+    value={itemToSearch}
+    placeholder="Search..."
+    onSubmitEditing={onSubmit}
+  />
   );
 };
 

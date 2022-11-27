@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
-  StatusBar,
   View,
   FlatList,
 } from 'react-native';
@@ -11,8 +10,10 @@ import SearchList from '../../components/SearchList';
 import SearchInput from '../../components/SearchInput';
 import LogoLearning from '../../components/LogoLearning';
 import NotItemsResult from '../../components/NotItemsResult';
+import StatusBar from '../../components/StatusBar';
 
 import { getImages } from '../../services/searchImages';
+import styles from './styles';
 
 const SearchPage = () => {
   const [searchResult, setSearchResult] = useState<any>([]);
@@ -81,14 +82,17 @@ const SearchPage = () => {
   return (
   <SafeAreaView>
     <StatusBar/>
-    {
-      !hideLogo && <LogoLearning />
-    }
-    <SearchInput 
-      onSearchImage={onSearchImage}
-      itemToSearch={itemToSearch}
-      onSubmit={verifyPrevious}
-    />
+    <View style={styles.topView}>
+      {
+        !hideLogo && <LogoLearning />
+      }
+      <SearchInput 
+        onSearchImage={onSearchImage}
+        itemToSearch={itemToSearch}
+        onSubmit={verifyPrevious}
+      />
+    </View>
+   
       <View>
         {
           showNoItemsResults && <NotItemsResult />

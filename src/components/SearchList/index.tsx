@@ -27,7 +27,6 @@ const SearchList = ({
   const viewablePreviousItem = useRef(0);
 
   useOrientationChange((o) => {
-    console.tron.log({o})
     setOrientation(o);
     if(flatListRef?.current && items.length > 5) {
       flatListRef?.current?.scrollToIndex({
@@ -65,7 +64,6 @@ const SearchList = ({
   }
 
   const onViewableItemsChanged = useCallback(({viewableItems}) => {
-    console.log({viewablePreviousItem})
     if (viewableItems.length != 0) {
       setViewableItem(verifyPreviousItem(viewableItems))
     }

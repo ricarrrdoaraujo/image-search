@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, StatusBar} from 'react-native';
 import colors from '../../styles/Colors';
 
 const styles = StyleSheet.create({
