@@ -26,8 +26,13 @@ const SearchPage = () => {
   }
 
   const verifyPrevious = (text: any) => {
-    if(itemToSearch == '') return;
+    if(itemToSearch == '') {
+      setHideLogo(false)
+      setSearchResult([])
+      return;
+    } 
     if(previousItem == itemToSearch) return;
+    setHideLogo(true)
     setPage(1)
     onSubmitText(text, page)
   }
