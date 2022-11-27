@@ -2,8 +2,9 @@ import React from 'react';
 import {
   TouchableOpacity,
   Image,
+  Dimensions,
 } from 'react-native';
-import {RouteProp, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 
 import {ISearchResult} from '../../models/SearchResult';
@@ -16,11 +17,13 @@ import {setCurrentItem} from '../../redux/slices/currentItemSlice';
 interface SearchResultProps {
   item: ISearchResult;
   currentIndex: number;
+  orientation: string;
 }
 
 const SearchListItem = ({
   item,
   currentIndex,
+  orientation,
 }: SearchResultProps) => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList, 'Details'>>();
   const dispatch = useAppDispatch();
@@ -36,12 +39,18 @@ const SearchListItem = ({
     })
   }
 
+  const onChangeOrientation = () => {
+    if (orientation != 'PORTRAIT') {
+      return {height: Dimensions.get('window').height - 20}
+    }
+  }
+
   return (
   <TouchableOpacity
     onPress={handleNavigation}>
     <Image
       resizeMode="contain"
-      style={styles.image}
+      style={[styles.image, onChangeOrientation() ]}
       source={{uri: item.webformatURL}}
     />
   </TouchableOpacity>

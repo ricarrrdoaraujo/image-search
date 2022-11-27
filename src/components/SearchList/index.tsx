@@ -1,7 +1,8 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState, useCallback} from 'react';
 import {
-  FlatList
+  FlatList,
 } from 'react-native';
+import { useOrientationChange } from "react-native-orientation-locker";
 
 import SearchListItem from '../SearchListItem';
 import {ISearchResult} from '../../models/SearchResult';
@@ -21,6 +22,20 @@ const SearchList = ({
 }: SearchResultsProps) => {
   const flatListRef = useRef<FlatList>(null)
   const currentItem = useAppSelector(selectCurrentItemSlice);
+  const [orientation, setOrientation] = useState('PORTRAIT');
+  const [viewableItem, setViewableItem] = useState<number>(0);
+  const viewablePreviousItem = useRef(0);
+
+  useOrientationChange((o) => {
+    setOrientation(o);
+    if(flatListRef?.current && items.length > 5) {
+      flatListRef?.current?.scrollToIndex({
+        animated: false, 
+        index: viewableItem,
+        viewPosition: 0.5,
+      })
+    }
+  });
 
   useEffect(() => {
     if(flatListRef?.current && items.length > 5) {
@@ -31,6 +46,29 @@ const SearchList = ({
       })
     }
   },[currentItem])
+
+  const viewabilityConfig = useRef({
+    viewAreaCoveragePercentThreshold: 95,
+  })
+
+  useEffect(() => {
+    viewablePreviousItem.current = viewableItem;
+  },[viewableItem])
+
+  const verifyPreviousItem = (viewableItem: any) => {//[0]?.index
+    if (viewableItem.length == 0) {
+      return viewablePreviousItem.current;
+    } else {
+      return viewableItem[0]?.index
+    }
+  }
+
+  const onViewableItemsChanged = useCallback(({viewableItems}) => {
+    console.log({viewablePreviousItem})
+    if (viewableItems.length != 0) {
+      setViewableItem(verifyPreviousItem(viewableItems))
+    }
+  },[])
 
   useEffect(() => {
     scrollToZero(flatListRef.current)
@@ -45,6 +83,7 @@ const SearchList = ({
           <SearchListItem
             item={item}
             currentIndex={index}
+            orientation={orientation}
           />
         )}
         keyExtractor={item => String(item.id)}
@@ -58,6 +97,8 @@ const SearchList = ({
         }}
         onEndReachedThreshold={0.2}
         onEndReached={onEndReached}
+        onViewableItemsChanged={onViewableItemsChanged}
+        viewabilityConfig={viewabilityConfig.current}
       />
     </>
   );

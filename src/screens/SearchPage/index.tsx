@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -54,18 +54,6 @@ const SearchPage = () => {
       onSearchNewPage()
     }
   },[page])
-
-  // useEffect(() => {
-  //   return () => {
-  //     if (itemToSearch != previousItem && page > 1 && scrollCallback) {
-  //       scrollCallback.scrollToIndex({
-  //         animated: false, 
-  //         index: 1,
-  //         viewPosition: 0.5,
-  //       })
-  //     }
-  //   } 
-  // })
 
   return (
   <SafeAreaView>
