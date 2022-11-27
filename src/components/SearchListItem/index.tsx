@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   TouchableOpacity,
   Image,
@@ -41,7 +41,7 @@ const SearchListItem = ({
 
   const onChangeOrientation = () => {
     if (orientation != 'PORTRAIT') {
-      return {height: Dimensions.get('window').height - 20}
+      return {height: Dimensions.get('window').height - 70}
     }
   }
 

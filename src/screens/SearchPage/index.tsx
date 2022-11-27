@@ -3,10 +3,14 @@ import {
   SafeAreaView,
   StatusBar,
   View,
+  FlatList,
 } from 'react-native';
+import { useOrientationChange } from "react-native-orientation-locker";
 
 import SearchList from '../../components/SearchList';
 import SearchInput from '../../components/SearchInput';
+import LogoLearning from '../../components/LogoLearning';
+
 import { getImages } from '../../services/searchImages';
 
 const SearchPage = () => {
@@ -14,7 +18,8 @@ const SearchPage = () => {
   const [itemToSearch, setItemToSearch] = useState('');
   const [previousItem, setPreviousItem] = useState('');
   const [page, setPage] = useState(1);
-  const [scrollCallback, setScrollCallback] = useState(null);
+  const [scrollCallback, setScrollCallback] = useState<FlatList>();
+  const [hideLogo, setHideLogo] = useState<boolean>(false);
 
   const onSearchImage = (item: string) => {
     setItemToSearch(item)
@@ -55,9 +60,20 @@ const SearchPage = () => {
     }
   },[page])
 
+  useOrientationChange((o) => {
+    if (o != 'PORTRAIT') {
+      setHideLogo(true)
+    } else {
+      setHideLogo(false)
+    }
+  });
+
   return (
   <SafeAreaView>
     <StatusBar/>
+    {
+      !hideLogo && <LogoLearning />
+    }
     <SearchInput 
       onSearchImage={onSearchImage}
       itemToSearch={itemToSearch}

@@ -1,12 +1,10 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
   TextInput,
   NativeSyntheticEvent,
   TextInputSubmitEditingEventData,
 } from 'react-native';
 
-import SearchListItem from '../SearchListItem';
-import {ISearchResult} from '../../models/SearchResult';
 import styles from './styles';
 
 interface SearchInputProps {
