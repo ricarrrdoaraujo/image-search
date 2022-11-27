@@ -5,11 +5,6 @@ import Logo from '../../assets/logo-learning.svg';
 
 const LogoLearning = () => {
 
-  const onChangeOrientation = () => {
-    // if (orientation != 'PORTRAIT') {
-    // }
-  }
-
   return (
     <View style={styles.image}>
       <Logo />

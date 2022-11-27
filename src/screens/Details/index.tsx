@@ -14,6 +14,8 @@ import {
 
 import {IDetails} from '../../models/SearchResult'
 import styles from './styles'
+import Tag from '../../components/Tag';
+import TextDefault from '../../components/TextDefault';
 
 type ParamList = {
   Params: IDetails;
@@ -25,7 +27,6 @@ const Details = () => {
   return (
   <SafeAreaView>
     <StatusBar/>
-    <ScrollView>
       <View style={styles.container}>
         <Image
           resizeMode="contain"
@@ -33,23 +34,22 @@ const Details = () => {
           source={{uri: router.params.largeImageURL}}
         />
         <View>
-          <Text>
+          <TextDefault>
             {`${router.params.imageWidth}x${router.params.imageHeight}`}
-          </Text>
+          </TextDefault>
         </View>
-        <Text>
-          {`Uploaded by ${router.params.user}`}
-        </Text>
+        <TextDefault>
+          Uploaded by
+          <TextDefault bold>{` ${router.params.user}`}</TextDefault>
+        </TextDefault>
         <View style={styles.tags}>
           {
             router.params.tags
             .split(', ')
-            .map((item: string) => <Text key={item}>{`${item} `}</Text>)
+            .map((item: string) => <Tag key={item} text={item}/>)
           }
         </View>  
-        
       </View>
-    </ScrollView>
   </SafeAreaView>
   );
 };
