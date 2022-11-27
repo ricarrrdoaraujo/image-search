@@ -10,6 +10,7 @@ import { useOrientationChange } from "react-native-orientation-locker";
 import SearchList from '../../components/SearchList';
 import SearchInput from '../../components/SearchInput';
 import LogoLearning from '../../components/LogoLearning';
+import NotItemsResult from '../../components/NotItemsResult';
 
 import { getImages } from '../../services/searchImages';
 
@@ -20,12 +21,14 @@ const SearchPage = () => {
   const [page, setPage] = useState(1);
   const [scrollCallback, setScrollCallback] = useState<FlatList>();
   const [hideLogo, setHideLogo] = useState<boolean>(false);
+  const [showNoItemsResults, setShowNoItemsResults] = useState<boolean>(false);
 
   const onSearchImage = (item: string) => {
     setItemToSearch(item)
   }
 
   const verifyPrevious = (text: any) => {
+    setShowNoItemsResults(false)
     if(itemToSearch == '') {
       setHideLogo(false)
       setSearchResult([])
@@ -41,7 +44,9 @@ const SearchPage = () => {
     setPreviousItem(text.nativeEvent.text)
     const res = await getImages(text.nativeEvent.text, pag);
     res && setSearchResult(res?.data.hits)
+    res?.data.hits.length == 0 && setShowNoItemsResults(true)
     scrollCallback &&
+    res?.data.hits.length > 0 &&
     scrollCallback.scrollToIndex({
       animated: false, 
       index: 1,
@@ -85,6 +90,9 @@ const SearchPage = () => {
       onSubmit={verifyPrevious}
     />
       <View>
+        {
+          showNoItemsResults && <NotItemsResult />
+        }
         {
           searchResult ?
           <SearchList 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   TouchableOpacity,
   Image,
@@ -9,6 +9,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 
 import {ISearchResult} from '../../models/SearchResult';
 import styles from './styles';
+import {windowHeight} from '../../styles/Dimensions';
 
 import {RootStackParamList} from '../../routes/types';
 import {useAppDispatch} from '../../redux/hooks';
@@ -41,7 +42,7 @@ const SearchListItem = ({
 
   const onChangeOrientation = () => {
     if (orientation != 'PORTRAIT') {
-      return {height: Dimensions.get('window').height - 70}
+      return {height: windowHeight - 70}
     }
   }
 
