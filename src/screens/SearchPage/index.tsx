@@ -14,6 +14,7 @@ import StatusBar from '../../components/StatusBar';
 
 import { getImages } from '../../services/searchImages';
 import styles from './styles';
+import TextDefault from '../../components/TextDefault';
 
 const SearchPage = () => {
   const [searchResult, setSearchResult] = useState<any>([]);
@@ -23,6 +24,7 @@ const SearchPage = () => {
   const [scrollCallback, setScrollCallback] = useState<FlatList>();
   const [hideLogo, setHideLogo] = useState<boolean>(false);
   const [showNoItemsResults, setShowNoItemsResults] = useState<boolean>(false);
+  const [rateLimitError, setRateLimitError] = useState<string>('');
 
   const onSearchImage = (item: string) => {
     setItemToSearch(item)
@@ -30,6 +32,7 @@ const SearchPage = () => {
 
   const verifyPrevious = (text: any) => {
     setShowNoItemsResults(false)
+    setRateLimitError('')
     if(itemToSearch == '') {
       setHideLogo(false)
       setSearchResult([])
@@ -44,6 +47,10 @@ const SearchPage = () => {
   const onSubmitText = async (text: any, pag: number) => {
     setPreviousItem(text.nativeEvent.text)
     const res = await getImages(text.nativeEvent.text, pag);
+    if(res.message) {
+      setRateLimitError(res.message)
+      return;
+    }
     res && setSearchResult(res?.data.hits)
     res?.data.hits.length == 0 && setShowNoItemsResults(true)
     scrollCallback &&
@@ -98,6 +105,9 @@ const SearchPage = () => {
       <View>
         {
           showNoItemsResults && <NotItemsResult />
+        }
+        {
+          rateLimitError && <TextDefault>{rateLimitError}</TextDefault>
         }
         {
           searchResult ?
