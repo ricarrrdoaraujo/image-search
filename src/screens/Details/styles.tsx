@@ -1,4 +1,4 @@
-import {StyleSheet, StatusBar} from 'react-native';
+import {StyleSheet} from 'react-native';
 import { windowWidth } from '../../styles/Dimensions';
 
 const styles = StyleSheet.create({
