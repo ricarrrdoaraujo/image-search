@@ -27,6 +27,7 @@ const Details = () => {
 
   useEffect(() => {
     Orientation.getDeviceOrientation((o) => {
+      if (o == 'UNKNOWN') return;
       if (o != 'PORTRAIT') {
         setLayoutContainer(styles.containerLandscape)
         setInfoContainer(styles.infoContainerLandscape)
@@ -38,6 +39,7 @@ const Details = () => {
   },[])
 
   useOrientationChange((o) => {
+    if (o == 'UNKNOWN') return;
     if (o != 'PORTRAIT') {
       setLayoutContainer(styles.containerLandscape)
       setInfoContainer(styles.infoContainerLandscape)
