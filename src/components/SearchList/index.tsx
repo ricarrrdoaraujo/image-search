@@ -104,6 +104,7 @@ const SearchList = ({
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={viewabilityConfig.current}
         ListFooterComponent={footer}
+        showsVerticalScrollIndicator={false}
       />
     </>
   );
