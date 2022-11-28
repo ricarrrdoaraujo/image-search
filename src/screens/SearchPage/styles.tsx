@@ -4,6 +4,9 @@ const styles = StyleSheet.create({
   topView: {
     paddingTop: StatusBar.currentHeight,
   },
+  bottomView: {
+    alignItems: 'center'
+  }
 });
 
 export default styles;

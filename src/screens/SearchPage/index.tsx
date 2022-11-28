@@ -102,22 +102,22 @@ const SearchPage = () => {
       />
     </View>
    
-      <View>
-        {
-          showNoItemsResults && <NotItemsResult />
-        }
-        {
-          rateLimitError && <TextDefault>{rateLimitError}</TextDefault>
-        }
-        {
-          searchResult ?
-          <SearchList 
-            items={searchResult}
-            onEndReached={handleEndReached}
-            scrollToZero={setScrollCallback}
-          /> : null
-        }
-      </View>
+    <View style={styles.bottomView}>
+      {
+        showNoItemsResults ? <NotItemsResult /> : null
+      }
+      {
+        rateLimitError ? <TextDefault>{rateLimitError}</TextDefault> : null
+      }
+      {
+        searchResult ?
+        <SearchList 
+          items={searchResult}
+          onEndReached={handleEndReached}
+          scrollToZero={setScrollCallback}
+        /> : null
+      }
+    </View>
   </SafeAreaView>
   );
 };

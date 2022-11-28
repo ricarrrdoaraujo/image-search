@@ -1,16 +1,14 @@
 import React from 'react';
-import {View, Image} from 'react-native';
+import {View} from 'react-native';
 import styles from './styles';
+import TextDefault from '../TextDefault';
+
 
 const NotItemsResult = () => {
 
   return (
-    <View style={styles.image}>
-      <Image
-        resizeMode="contain"
-        style={styles.image}
-        source={require('../../assets/no-results.webp')}
-      />
+    <View style={styles.container}>
+      <TextDefault bold>There are no results to show.</TextDefault>
     </View>
   );
 };
