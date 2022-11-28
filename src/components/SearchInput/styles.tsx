@@ -1,5 +1,5 @@
 import {StyleSheet, StatusBar} from 'react-native';
-import colors from '../../styles/Colors';
+import colors from '../../styles/colors';
 
 const styles = StyleSheet.create({
   input: {
