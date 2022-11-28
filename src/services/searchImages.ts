@@ -1,6 +1,5 @@
 import api from './api';
 import Config from 'react-native-config';
-import {ISearchResult} from '../models/SearchResult';
 
 export const getImages = async (text: string, page?: number): Promise<any> =>  {
   try {
