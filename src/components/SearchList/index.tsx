@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState, useCallback} from 'react';
 import {
   FlatList,
+  View,
 } from 'react-native';
 import { useOrientationChange } from "react-native-orientation-locker";
 
@@ -8,6 +9,7 @@ import SearchListItem from '../SearchListItem';
 import {ISearchResult} from '../../models/SearchResult';
 import {useAppSelector} from '../../redux/hooks';
 import {selectCurrentItemSlice} from '../../redux/slices/currentItemSlice';
+import styles from './styles';
 
 interface SearchResultsProps {
   items: ISearchResult[];
@@ -73,6 +75,9 @@ const SearchList = ({
     scrollToZero(flatListRef.current)
   },[flatListRef])
 
+  const footer = () => <View style={styles.footer} />
+  
+
   return (
     <>
       <FlatList
@@ -98,6 +103,7 @@ const SearchList = ({
         onEndReached={onEndReached}
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={viewabilityConfig.current}
+        ListFooterComponent={footer}
       />
     </>
   );
