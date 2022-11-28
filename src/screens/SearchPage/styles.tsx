@@ -5,7 +5,8 @@ const styles = StyleSheet.create({
     paddingTop: StatusBar.currentHeight,
   },
   bottomView: {
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingTop: 20,
   }
 });
 
