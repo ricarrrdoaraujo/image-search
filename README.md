@@ -1,4 +1,4 @@
-# Aktiv Learning Image Search
+# Image Search
 
 ## Requirements
 
